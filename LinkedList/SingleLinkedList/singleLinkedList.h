@@ -1,6 +1,10 @@
 #ifndef _SINGLELINKEDLIST_H_
 #define _SINGLELINKEDLIST_H_
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>        // bool in c99
+
 typedef int ElementType;
 
 typedef struct LNode{
@@ -8,34 +12,32 @@ typedef struct LNode{
     struct LNode *next;     // next: node address; *next: node
 }LNode, *LinkList;
 
-// create a single linked list
-bool CreateList(LinkList &L);
+// 创建一个空的单链表，
+LinkList CreateList();
 
 // destory a single linked list
-bool DestoryList(LinkList &L);
+// bool DestoryList(LinkList &L);
 
 // clear List
-bool ClearList(LinkList &L);
+// bool ClearList(LinkList &L);
 
 // return length of a single linked list
-int ListLength(LinkList L);
+// int ListLength(LinkList L);
 
 // List is empty or not?
-bool ListEmpty(LinkList L);
+// bool ListEmpty(LinkList L);
 
 // Get the ith element
-ElementType GetElemUnSafe(LinkList L, int i);       // not safe
-bool GetElem(LinkList L, int i, ElementType &e);
+// bool GetElem(LinkList L, int i, ElementType &e);
 
 // find the element
-LNode *LocateElem(LinkList L, ElementType e);
+// LNode *LocateElem(LinkList L, ElementType e);
 
 // insert a Node
-bool ListInsert(LinkList &L, int i, ElementType e);
+// bool ListInsert(LinkList L, int i, ElementType e);
 
 // delete a Node
-bool ListDelete(LinkList &L, int i, ElementType &e);
-
+// bool ListDelete(LinkList &L, int i, ElementType &e);
 
 
 #endif

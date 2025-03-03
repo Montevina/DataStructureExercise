@@ -1,17 +1,12 @@
 #include "singleLinkedList.h"
 
-bool CreateList(){
-
+// 创建一个空的单链表
+LinkList CreateList() {
+    LinkList L = (LinkList)malloc(sizeof(LNode));
+    if (L == NULL) {
+        return NULL;
+    }
+    L->next = NULL;
+    return L;
 }
 
-bool DestroyList(){
-
-}
-
-bool ClearList(LinkList &L){
-
-}
-
-int ListLength(LinkList L){
-    
-}
