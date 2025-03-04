@@ -9,16 +9,30 @@ typedef int ElementType;
 
 typedef struct LNode{
     ElementType data;
-    struct LNode *next;     // next: node address; *next: node
+    struct LNode *next;     
 }LNode, *LinkList;
+
+/* 等价写法
+struct LNode{
+    ElementType data;
+    struct LNode *next;      // 这里不可以用LinkList代替, 因为LinkList是未定义的
+};
+
+typedef struct LNode LNode;  // LNode 作为 struct LNode 的别名
+typedef LNode *LinkList;     // LinkList 作为 LNode * 的别名, 即 LinkList 是指向 LNode 的指针
+                             // 这样做法是区分了 LNode 和 LinkList 两个类型, 提高代码可读性
+*/
 
 // 创建一个空的单链表，
 LinkList CreateList();
 
-// print a single linked list
+// 创建一个新的节点
+LNode *CreateNode(ElementType data);
+
+// 打印全链表
 void PrintList(LinkList L);
 
-// print ith node of a single linked list
+// 打印链表中第i个节点
 void PrintNode(LinkList L, int i);
 
 // destory a single linked list
@@ -40,10 +54,10 @@ void PrintNode(LinkList L, int i);
 // LNode *LocateElem(LinkList L, ElementType e);
 
 // insert a Node
-bool ListInsert(LinkList L, int i, ElementType e);
+bool ListInsert(LinkList *L, int i, ElementType e);
 
-// delete a Node
-// bool ListDelete(LinkList &L, int i, ElementType &e);
+// 删除链表中第i个节点
+bool DeleteNode(LinkList *L, int i);
 
 
 #endif
