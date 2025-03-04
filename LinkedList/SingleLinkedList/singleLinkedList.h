@@ -15,6 +15,12 @@ typedef struct LNode{
 // 创建一个空的单链表，
 LinkList CreateList();
 
+// print a single linked list
+void PrintList(LinkList L);
+
+// print ith node of a single linked list
+void PrintNode(LinkList L, int i);
+
 // destory a single linked list
 // bool DestoryList(LinkList &L);
 
@@ -34,7 +40,7 @@ LinkList CreateList();
 // LNode *LocateElem(LinkList L, ElementType e);
 
 // insert a Node
-// bool ListInsert(LinkList L, int i, ElementType e);
+bool ListInsert(LinkList L, int i, ElementType e);
 
 // delete a Node
 // bool ListDelete(LinkList &L, int i, ElementType &e);
