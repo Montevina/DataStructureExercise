@@ -102,7 +102,5 @@ bool DeleteNode(LinkList *L, int i){
             p = p->next;
             i--;
         }
-
-
     }
 }
