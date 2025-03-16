@@ -102,6 +102,7 @@ bool DeleteNode(LinkList *L, int i){
             p = p->next;
             i--;
         }
+<<<<<<< HEAD
         if(p->next == NULL){                   // 如果插入位置为表尾
             printf("illegal operation!\n");
             return false;
@@ -112,5 +113,7 @@ bool DeleteNode(LinkList *L, int i){
             free(q);
             return true;
         }
+=======
+>>>>>>> 7097f6f6d07edcba0af0d4bf427527351e3ca7a6
     }
 }
