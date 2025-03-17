@@ -23,13 +23,13 @@ void FreeNode(Link *p);
 
 bool InitList(LinkList *L);
 
-bool DestroyList(LinkList *L);
+bool DestroyList(LinkList **L);
 
 bool ClearList(LinkList *L);
 
-bool InsFirst(Link h, Link s);
+// bool InsFirst(Link h, Link s);
 
-bool DelFirst(Link h, Link *q);
+// bool DelFirst(Link h, Link *q);
 
 bool Append(LinkList *L, Link s);
 
@@ -64,6 +64,10 @@ bool equal(ElementType a, ElementType b);
 bool greater(ElementType a, ElementType b);
 bool less(ElementType a, ElementType b);
 
-bool ListTraverse(LinkList L, void (*visit)(ElementType));
+bool ListTraverse(LinkList L, bool (*visit)(ElementType));
 bool visit(ElementType e);
+
+//
+void printLinkList(LinkList L);
+
 #endif

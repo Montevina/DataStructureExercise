@@ -5,7 +5,7 @@ CC = gcc
 CFLAGS = -Wall -g
 
 # 定义目标文件
-TARGET = single_linked_list
+TARGET = singleLinkedListHT
 
 # 定义源文件
 SRCS = main.c singleLinkedListHT.c

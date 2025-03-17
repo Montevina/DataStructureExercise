@@ -17,28 +17,25 @@ void FreeNode(Link *p){
 }
 
 bool InitList(LinkList *L){
-    L = malloc(sizeof(LinkList));
+
+    while(L == NULL){
+        return false;
+    }
     L->head = NULL;
     L->tail = NULL;
     L->len = 0;
+    return true; 
 }
 
-bool DestroyList(LinkList *L){
+bool DestroyList(LinkList **L){
     
-    if(L == NULL){
+    if(L == NULL || *L == NULL){
         return false;
     }
-
-    Position p = L->head;
-    while(p != NULL && p != L->tail){
-        Position q = p;
-        p = p->next;
-        free(q);
-    }
-    if(p == L->tail){
-        free(p);
-    }
-    free(L);
+    ClearList(*L);
+    free(*L);
+    *L = NULL;
+    return true;
 }
 
 bool ClearList(LinkList *L){
@@ -49,46 +46,34 @@ bool ClearList(LinkList *L){
     else{
         Position p = L->head;
         while(p != NULL && p != L->tail){
-        Position q = p;
-        p = p->next;
-        free(q);
+            Position q = p;
+            p = p->next;
+            free(q);
+        }
+        if(p == L->tail){
+            free(p);
+        }   
+        L->head = NULL;
+        L->tail = NULL;
+        L->len = 0;
     }
-    if(p == L->tail){
-        free(p);
-    }   
-    L->head = NULL;
-    L->tail = NULL;
-    L->len = 0;
+    return true;
 }
 
-bool InsFirst(Link h, Link s){
-    if(h == NULL || s == NULL || h->next == NULL){
-        return false;
-    }
-    else{
-        s->next = h->next;
-        h->next = s;
-        return true;
-    }
-}
+// bool InsFirst(Link h, Link s){
 
-bool DelFirst(Link h, Link *q){
-    if(h == NULL || h->next == NULL){
-        return false;
-    }
-    else{
-        *q = h->next;
-        h->next = (*q)->next;
-        return true;
-    }
-}
+// }
+
+// bool DelFirst(Link h, Link *q){
+
+// }
 
 bool Append(LinkList *L, Link s){
     if(L == NULL || s == NULL){
         return false;
     }
     else{
-        if(L->len = 0){
+        if(L->len == 0){
             L->head = s;
         }
         else{
@@ -100,7 +85,7 @@ bool Append(LinkList *L, Link s){
             L->len++;
         }
         L->tail = p;
-        free(p);
+        return true;
     }
 }
 
@@ -117,39 +102,47 @@ bool Remove(LinkList *L, Link *q){
         p->next = NULL;
         L->tail = p;
         L->len--;
-        free(p);
         return true;
     }
 }
 
 bool InsBefore(LinkList *L, Link *p, Link s){
-    if(L == NULL || L->next == NULL || p == NULL || s == NULL){
+    if(L == NULL || p == NULL || s == NULL){
         return false;
+    }
+    else if(*p == L->head){
+        L->head = s;
     }
     else{
         Position q = L->head;
-        while(q->next != p){
+        while(q->next != *p){
             q = q->next;
         }
-        s->next = q->next;
         q->next = s;
-        return true;
     }
+    s->next = *p;
+    L->len++;
+    return true;
 }
 
 bool InsAfter(LinkList *L, Link *p, Link s){
-    if(L == NULL || L->next == NULL || p == NULL || s == NULL){
+
+    // 检查参数合法性
+    if(L == NULL || p == NULL || s == NULL){
         return false;
     }
+    // 插入操作
     else{
-        if(p == L->tail){
+        if(L->len == 0){
             s->next = NULL;
-            L->tail = s;
+            L->head = s;
         }
         else{
-            s->next = p->next;
+            s->next = (*p)->next;
+            (*p)->next = s;
         }
-        p->next = s;
+        L->tail = s;
+        L->len++;
         return true;
     }
 }
@@ -166,7 +159,8 @@ bool SetCurElem(Link *p, ElementType e){
 
 ElementType GetCurElem(Link p){
     if(p == NULL){
-        return NULL;
+        printf("p is NULL\n");
+        return 0;
     }
     else{
         return p->data;
@@ -174,7 +168,7 @@ ElementType GetCurElem(Link p){
 }
 
 bool ListEmpty(LinkList L){
-    if(L == NULL || L->len == 0){
+    if(L.len == 0){
         return true;
     }
     else{
@@ -183,23 +177,23 @@ bool ListEmpty(LinkList L){
 }
 
 int ListLength(LinkList L){
-    return L->len;
+    return L.len;
 }
 
 Position GetHead(LinkList L){
-    return L->head;
+    return L.head;
 }
 
 Position GetLast(LinkList L){
-    return L->tail;
+    return L.tail;
 }
 
 Position PriorPos(LinkList L, Link p){
-    if(L == NULL || L->len == 0 || p == NULL){
+    if(L.len == 0 || p == NULL){
         return NULL;
     }
     else{
-        Position q = L->head;
+        Position q = L.head;
         while(q->next != p){
             q = q->next;
         }
@@ -208,7 +202,7 @@ Position PriorPos(LinkList L, Link p){
 }
 
 Position NextPos(LinkList L, Link p){
-    if(L == NULL || L->len == 0 || p == NULL){
+    if(L.len == 0 || p == NULL){
         return NULL;
     }
     else{
@@ -216,12 +210,12 @@ Position NextPos(LinkList L, Link p){
     }
 }
 
-bool LocatePos(LinkList L, int i, Link *p);{
-    if(L == NULL || L->len == 0 || i < 1 || i > L->len){
+bool LocatePos(LinkList L, int i, Link *p){
+    if(L.len == 0 || i < 1 || i > L.len){
         return false;
     }
     else{
-        Position q = L->head;
+        Position q = L.head;
         int j = 1;
         while(j < i){
             q = q->next;
@@ -233,11 +227,11 @@ bool LocatePos(LinkList L, int i, Link *p);{
 }
 
 Position LocateElem(LinkList L, ElementType e, bool (*compare)(ElementType, ElementType)){
-    if(L == NULL || L->len == 0){
+    if(L.len == 0){
         return NULL;
     }
     else{
-        Position p = L->head;
+        Position p = L.head;
         while(p != NULL && !(*compare)(p->data, e)){
             p = p->next;
         }
@@ -260,12 +254,12 @@ bool less(ElementType a, ElementType b) {
     return a < b;
 }
 
-bool ListTraverse(LinkList L, void (*visit)(ElementType)){
-    if(L == NULL || L->head == NULL || L->len == 0){
+bool ListTraverse(LinkList L, bool (*visit)(ElementType)){
+    if(L.len == 0){
         return false;
     }
     else{
-        Position p = L->head;
+        Position p = L.head;
         while(p->next != NULL && (*visit)(p->data)){
             p = p->next;
         }
@@ -281,4 +275,13 @@ bool visit(ElementType e){
     else{
         return true;
     }
+}
+
+void printLinkList(LinkList L){
+    Position p = L.head;
+    while(p != NULL){
+        printf("%d-> ", p->data);
+        p = p->next;
+    }
+    printf("NULL\n");
 }
