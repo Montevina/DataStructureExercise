@@ -12,7 +12,4 @@ typedef struct DNode {
     struct DNode *prior, *next;
 } DNode, *DLinkList;
 
-bool InitDLinkList(DLinkList *L);
-
-
 #endif

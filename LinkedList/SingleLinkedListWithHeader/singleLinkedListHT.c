@@ -260,7 +260,8 @@ bool ListTraverse(LinkList L, bool (*visit)(ElementType)){
     }
     else{
         Position p = L.head;
-        while(p->next != NULL && (*visit)(p->data)){
+        while(p->next != NULL){
+            (*visit)(p->data);
             p = p->next;
         }
         return true;
@@ -268,20 +269,7 @@ bool ListTraverse(LinkList L, bool (*visit)(ElementType)){
 }
 
 // 测试函数visit，如果visit是0，则返回false，否则返回true
-bool visit(ElementType e){
-    if(e == 0){
-        return false;
-    }
-    else{
-        return true;
-    }
-}
+void visit(ElementType e){
 
-void printLinkList(LinkList L){
-    Position p = L.head;
-    while(p != NULL){
-        printf("%d-> ", p->data);
-        p = p->next;
-    }
-    printf("NULL\n");
+    printf("%d-> ", e);
 }

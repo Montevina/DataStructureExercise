@@ -65,9 +65,6 @@ bool greater(ElementType a, ElementType b);
 bool less(ElementType a, ElementType b);
 
 bool ListTraverse(LinkList L, bool (*visit)(ElementType));
-bool visit(ElementType e);
-
-//
-void printLinkList(LinkList L);
+void visit(ElementType e);
 
 #endif

@@ -28,7 +28,7 @@ int main(){
 
     printf("L1: ");
     printf("Length: %d\n", ListLength(L1));
-    printLinkList(L1);
+    ListTraverse(L1, visit);
 
     MakeNode(&p, 0);
     InsBefore(&L1, &L1.tail, p);
@@ -40,8 +40,7 @@ int main(){
     long address = (long)LocateElem(L1, 10, equal);
     printf("10 is at %lx\n", address);
 
-    bool hasZero = ListTraverse(L1, visit);
-    printf("Zero in the list: %d\n", hasZero);
+    ListTraverse(L1, visit);
 
     LinkList L2;
     InitList(&L2);
@@ -72,20 +71,6 @@ int main(){
     printf("L1 cleared: %d\n", ListEmpty(L1));
     printf("L1: ");
     printLinkList(L1);
-
-
-    LinkList L3;
-    InitList(&L3);
-    MakeNode(&p, 1);
-    InsAfter(&L3, &L3.head, p);
-    for(int i = 2; i < 40; i++){
-        MakeNode(&p, i);
-        InsAfter(&L3, &L3.tail, p);
-    }
-    printf("L3: ");
-    printLinkList(L3);
-    DestroyList(&L3);
-    printf("L3.len = %d\n", L3.len);
     
     return 0;
 }
